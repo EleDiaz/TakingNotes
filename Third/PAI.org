@@ -1,0 +1,67 @@
+* PAI
+** Notas
+- Hacer una maquina virtual de ubuntu.
+** Presentación - Eclipse
+*** Historia
+Hay retrocompatibilidad? con los imports
+
+*** Instalacion
+- jdk -> eclipse -- Via web
+- O con el gestionador de packetes del sistema unix - pacman
+*** Workspace
+Estructura basica
+- Proyecto > Paquetes > Directorios ficheros
+Se puede ejecutar con argumentos run Confgurations -> "argumeto1" "Argumento2"
+*** Asistentes
+Son pequeños programas que ayudan a la creacion de proyectos clases...
+- autocomentarios
+  + Ctrl+Shift+j
+
+Es posible generar la documentación
+
+Hay diferentes vistas y estas se pueden modificar y generar nuevas
+
+*** Importar y exportar proyectos en eclipse
+File -> export | import
+Existen problemas de compatibilidad de versiones y SO
+
+*** Debug
+- Console
+- Breakpoints..
+*** Exceptions
+*** Tricks
+Refactor -> permite modificar el codigo nombres de variables sin "romper el codigo"
+Generar Setters y getter
+Ctrl+Space -> expande el "snippet"
+Ctrl+o -> metodos dela clase y sii otro vez los de la superclase
+ctrl+7 -> commentar
+Ctrl+i -> autoindentado
+
+*** Plugin Marketplace
+Egit -> sistema de control de versiones
+Test-NG
+EclEmma -> Que cantidad de lineas se comtemplan en el testeo
+*** Badel
+Traduce aplicaciones
+
+** Aprende java como si estuviera en primero
+*** Interfaces
+Permiten la herencia multiple. Un conjunto de metodos sin implementación.
+Las clases pueden *implentar* tantas intefaces com quieran (implements)
+#+BEGIN_SRC java
+public interface IDibujable {
+   metodos...
+}
+#+END_SRC
+*No poner nombres cortos, bien claros*
+*Repetar los convenios*
+Para los paquetes
+=es.ull.esit.PAI.Practica=
+Import estaticos
+#+BEGIN_SRC java
+import static ....; // solo algunos elementos del paquete
+
+#+END_SRC
+Argumentos variables
+
+Anotaciones @algo Es informacion que se añade al codigo.

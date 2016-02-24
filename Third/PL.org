@@ -1,0 +1,154 @@
+* Procesadores de lenguaje
+** Primer dia
+- Horario de tutorias -> mirar el calendario de google
+lunes 11.30 - 1.00
+martes 10.30 - 12.00
+miercoles 11.30 - ??.??  -- mandar email
+jueves 9.30 - 11.00
+*** Analisis léxico
+Fichero c.
+if (a==5) b=4 -> analisis lexico
+separa en tokens
+IF (ID 'a') EQ (Num 5) (ID 'b') ASSIGN (Num 4) -- TOKENS
+*** Analisis sintáctico
+Arbol de analisis sintactico
+IF (EQ (ID 'a') (Num '5')) (ASSIGN (ID 'b') (Num 4)) -- El arbol
+- Metodos ascendentes y decendentes
+*** Analisis semántico
+El arbol es la entrada del analisis semantico -> significado y sentido
+Se recorre el arbol con informacion adicional(se genera un arbol decorado), los tipos de datos
+ejemplo ID 'a' -> es de tipo String
+EQ (ID 'a') (Num 4) --> error semántico.
+-- Se pueden realizar optimizaciones aqui -> son independientes de la máquina
+Ejemplo
+a = 2*3
+-> Constant folding
+a = 6
+
+*** Generación de código(Interpretación)
+Un interprete casi ejecuta el arbol o una version intermedia de él
+-> De un arbol se pasa a una estructura lineal -> una cadena
+Para cada tipo de nodo hay un esquema de traducción.
+- Traduzco condición
+jumpifzero label
+- Traduzco sentencia
+label 
+** Segundo dia
+*** Gh-Pages
+Todo lo que se ponga se puede ver como pagians estáticas
+- Crear una pagiana web de usuario
+** Tercer dia
+Npm y el package.json
+*** Practica
+debe soportar numeros floatantes 1e5 ....
+Permitir whitespaces entre el numero y la letra ...
+Usar Emmet, caen preguntas
+vemos  Document Object Model
+
+id - Permite un acceso rapido al objeto(deberia ser unico)
+
+class - Otro identificador compartido
+
+autofocus - Pone el cursor en el punto establecido nadda mas abrir la page
+
+- Mala practica poner codigo javascript en un fichero html
+
+#+BEGIN_SRC javascript
+"use strict" // Lo hace menos permiso, y da mas mensajes de error si ve cosas sospechosas
+#+END_SRC
+
+
+#+BEGIN_SRC javascript
+a = /^[a-z]/
+///
+/[^a-z]/  // no debe empezar con una letra niega lso elementos a elegir
+/^[a-z0-9]+$/ // $ es un anclar caza la expresion con el final "\n"
+/\d/ // digit
+/\s/ // space las cosas que son blancos
+/\w/ // [a-zA-Z0-9_]
+/(?....)/ // Parentesis "raros", son parentesis de agrupamiento como los "normales", esta solo sirve para agrupar no tiene memoria
+/./ // calza con cualquier caracter salvo con el \n
+/exp/i // i insentive case 
+// Los parentesis tienen propiedades magicas
+
+#+END_SRC
+
+Los elementos del DOM tiene un atributo que permite incrustar html "innerHTML"
+#+BEGIN_SRC javascript
+converted.innerHTML = result;
+#+END_SRC
+*** CSS
+Se suelen aplicar dos hojas de estilo.
+Navegadores aplican de diferente forma el estilo.
+CSS reset -> Es usar el estilo diseñado por el programador y no el del navegador.
+
+Pseudoclases dinamicas a:hover
+#+BEGIN_SRC c
+
+#+END_SRC
+
+
+- Se aplica la regla mas especifica
+
+
+*** Practica 2
+Para configurar diferentes sesiones de ssh ir al directorio `~/.ssh/config`
+Se onfigura hostname ver sintaxis
+
+y el repo de github cambiar el remoto para usar la correspondiente ssh
+
+alu-github.com es el nombre que se puso en la config de ssh
+#+BEGIN_SRC bash
+git remote add origin git@alu-github.com:......
+#+END_SRC
+
+Tambien se debe cambiar la configuracion de git para hacer los commits como un determinado usuario
+#+BEGIN_SRC bash
+git config user.name # Tener en cuenta el global, solo se quiere cambiar el local.
+git config user.email ....
+#+END_SRC
+
+
+Linter -> avisa de malas practicas o errores, usar un lint para las practicas!!
+Hacer a pelo no usar bootstrap.
+
+#+BEGIN_SRC bash
+git checkout -b html5pattern oring/html5pattern  # hay que obtener la rama y "pillarla bien" para usarla en local
+#+END_SRC
+
+
+Mirar el semver.org para el versionado
+
+La ultima parte es poner la expresion regular en pattern del input, se deja en los lados
+
+** Javascript y amigos
+*** package.json
+Un fichero de configuracion para programas/aplicacion node, en el cual se pueden especificar dependencias scripts etc...
+
+Cuando se definen los scripts las palabras con las que se definen forman parten del npm ejemplo
+#+BEGIN_SRC javascript
+npm test // siendo test el nombre del script
+#+END_SRC
+
+
+*** NOTA: GIT CHECKOUT
+Permite traer ficheros de distintas ramas a la actual y de commits anteriores al actual.
+
+#+BEGIN_SRC bash
+  git checkout origin file
+
+  git checkout commit file
+#+END_SRC
+
+*** Mocha
+Permite varios frameworks para las excepciones en este caso usamos chai.
+
+#+BEGIN_SRC bash
+npm install --save mocha
+#+END_SRC
+
+
+*** GIT RESET 
+Mueve el HEAD a una determinada posicion, tambien se puede usar para descartar todos los cambios actuales hasta los añadidos en con add
+
+Para archivos especificos usar `git checkout -- file`

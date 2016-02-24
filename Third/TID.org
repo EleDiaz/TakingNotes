@@ -1,0 +1,32 @@
+* Tratamiento de datos
+** Notas:
+Marcar: Objetivo de los datos para que se quiere obtener de ellos
+Proxima semana todo hecho
+** Primer dia
+- Charla de profesor la prox semana
+** Talk Notes - Big data and Real Time Bidding
+Charla interesante
+** Extracción de conocimiento de base de datos
+- Etapas
+Como saber que las reglas que calsifican al cliente son correctas
+
+if (....) then NO_PAGA
+if (....) then PAGA
+if (....) then NO_PAGA
+
+| Clientes | Variables | PAGA HECHO | PREDICHO DEL SISTEMA       |
+|----------+-----------+------------+----------------------------|
+| ID1      | ....      | Si         | NO                         |
+| ID2      | ...       | Si         | No                         |
+| .....    | ......    | ......     | ....                       |
+|----------+-----------+------------+----------------------------|
+|          |           |            | 90% de acierto por ejemplo |
+
+Matriz de confusion
+| Real\Predicho | Si | No |
+| Si            | 20 |  5 |
+| No            |  5 | 70 |
+
+La diagonal es % de acierto
+
+

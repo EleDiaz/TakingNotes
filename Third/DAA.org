@@ -1,0 +1,314 @@
+* Diseño y análisis de algoritmos
+** Primer dia
+- Mirar el enlace en el aula virtual para las tutorias
+- Avisar por email
+- jmmoreno@ull.es
+- lmmoreno@ull.es
+- Ojo con las clases poner todas las necesarias Hacer POO bien
+** TODO:
+- ver CUDA para programacion en paralelo
+- ver Rubrica de la practica RAM
+** Introducción a los sistemas de cómputo
+*** Teoría de la computación
+- Teoria de automatas
+- Complejidad computacional
+- Teoria de la computabilidad
+  
+Capacidad, limites, clasificacion de porblemas, eficiencia.
+
+La clasificacion permite agrupar los algoritmos, estos comparten caracteristicas...
+
+*** Hitoria de la computación
+- Abaco
+- Telar de tarjetas perforadas
+- Máquina analítica
+- Decada de los 30's
+  + Turing, Church, Kleene ...
+  + Demuestran problemas no resolubles y algo mas...
+- Decada 40's
+  + EINAC
+  + Von Neuman 
+- Decada 50's y 60's
+  + Lenguajes de programación....
+  + SO
+- 60's
+  + Ley de moore
+- Decada de los 70's y 90's
+  + Semántica de los lenguajes
+  + Bases de datos relacionales
+  + Metodos de verificacion formales
+  + VLSI - revolucion en el hardware
+  + Maquina de acceso aleatorio (RAM) - Secuencial - Este es el que se implementa
+  + Modelo abstracto para la computacion paralela(PRAM) - Solo teorico
+*** Modelo computacional secuencial
+Un modelo computacional es una simplificación de la realidad, una forma teórica de un problema que se puede representar.
+Y se demuestra con ese modelo que algo se puede resolveer.
+
+El modelo RAM. Se tiene una memoria y se puede acceder a un punto de la memoria de forma directa con el mismo coste.
+
+- Elementos
+  + Programa
+  + Contador
+  + Una entrada de lectura(cinta) - Se desplaza a la derecha
+  + Cinta de salida no se puede leer solo escribir se desplaza a la derecha
+  + Memoria
+    - A partir de R1 son los espacios de memoria que se pueden usar
+    - En R0 sera el acumulador para hacer las opraciones.
+
+Solo se tienen las operaciones básicas y saltos
+
+Direccionamiento:
++ Indirecto  op *i
++ Directo op i
++ Inmediato op =i
+
+Cada instruccion tarda 1ud de tiempo y cada registro ocupa un a palabra.
+
+Cualquier maquina RAM se puede escribir en una maquina de turing y al contrario.
+
+**** Operadores
+- LOAD  -- Cargar un valor
+  + LOAD =3 -- Se escribe el valor directamente en el acumulador
+| (acc)3 |
+|      7 |
+|      5 |
+|      1 |
+  + LOAD *3 
+| (acc)7 |
+|      7 |
+|      5 |
+|      1 |
+- STORE -- Guardar un valor
+  + STORE =1 Opcion sinsnetido
+  + Las demas...
+- READ - Leemos de la cinta de entrada y se coloca en un registro. Recordar que la cinta se desplazara automáticamente
+  - El modo inmediato no tiene sentido
+- WRITE - Escribimos de la memoria a la cinta de salida
+**** Operadores aritmeticos
+Todos admiten los todos los direccionamiento
+- ADD
+- SUB
+- MUL
+- DIV → Se toma la parte entera.
+**** Operador/Operaciones de control
+- HALT
+**** Operadores de salto
+Solo se puede mirar el acumulador
+- JUMP etiq
+- JGTZ etiq → Mayor que cero (> 0)
+- JZERO etiq → Si es igual a cero
+**** Ejemplo de uso de operadores
+=a ← b=
+LOAD 2
+STORE 1
+=a ← b + 2=
+LOAD 2
+ADD =2
+STORE 1
+#+begin_src asm
+mientras x > 0 hacer
+  x ← x-2
+fin-mientras
+--------------------
+-- R1 x
+while:
+    LOAD 1
+    JGTZ bucle
+    JUMP fin_while
+bucle:
+    LOAD 1 -- da lo mismo lo que ya tenga en el acumulador
+    SUB =2
+    STORE 1
+    JUMP while
+fin_while:
+    HALT -- Si es el fin del programa
+#+end_src
+
+#+begin_src asm
+Si x <= 0 entonces
+  y ← x+y
+si no
+  y ← x
+--------------------
+-- R1 x
+-- R2 y
+
+    LOAD 1
+    JGTZ else
+    LOAD 1
+    ADD 2
+    STORE 2
+    JUMP fin_if -- Se puede poner el HALT aqui en este caso
+else:
+    LOAD 1
+    STORE 2 -- Si se pone el HALT arriba ponerlo aqui tambien ojo
+fin_if:
+    HALT
+#+end_src
+
+- Problema:
+#+BEGIN_SRC haskell
+f :: Int -> Int
+f n | n>=1      = n*n
+    | otherwise = 0
+{-
+leer(n)
+si n<=0
+   escribir(0)
+sino
+   x = n
+   x *= x
+   escribir(x)
+-}
+#+END_SRC
+#+BEGIN_SRC asm
+    READ 1
+    LOAD 1 // no olvidar cargarlo!!
+    JGTZ else
+    WRITE =0
+    JUMP fin
+else:
+    LOAD 1 // No haria falta pero no hace daño,
+           // esto evita problemas en los programas
+           // por los gran cantidad de saltos de flujos
+    MUL 1
+    STORE 1 // tambien se puede evitar sobrescribir el registro poniendolo en otro
+    WRITE 1 // No se puede escribir del acumulador directamente lo mismo pasa con READ
+fin:
+    HALT
+#+END_SRC
+- El mismo ejemplo pero con sumas
+#+BEGIN_SRC asm
+/*
+leer(n)
+si n<=0
+   escribir(0)
+sino
+   x = n
+   cont = n-1
+   while(cont>0)
+       x=x+n
+       cont= cont-1
+   escribir(x)
+
+// n → R1
+// x → R2
+// c → R3
+*/
+    READ 1
+    LOAD 1
+    JGTZ else
+    WRITE =0
+    JUMP fin
+else:
+    LOAD 1
+    STORE 2
+    LOAD 1
+    SUB =1
+    STORE 3
+cond:
+    LOAD 3
+    JGZT bucle
+    JUMP fin_bucle
+bucle:
+    LOAD 2
+    ADD 1
+    STORE 2
+    LOAD 3
+    SUB =1
+    STORE 3
+    JUMP cond
+fin_bucle:
+    // STORE 1
+    WRITE 1
+fin:
+    HALT
+#+END_SRC
+*** Modelo computacional paralelo
+- El modelo PRAM(Parallel Random Access Machine)
+N procesadores indenticos.
+
+Se trata de reducir el tiempo por la cantidad de procesesadores.
+
+$t → t/np$
+
+Computacion parelela heterogenea → varios procesadores de diferentes caracteriscas.
+*** Algoritmica
+Estudio de los algoritmos
+- El diseño
+  + Creacion de los algoritmos.
+  + Tecnicas de diseño de algoritmos.
+- Validacion
+  + Demostracion que la respuestas dadas por un algoritmo son siempre correctas.
+  + Demostracion formal.
+- Analisis
+  + Determianr los recursos (espacio y tiempo) que consumen los algoritmos
+  + Comparacion  de algoritmos
+*** Complejidad
+- Notacion O(n)
+  + Proporciona una costa superior al tiempo de ejecucion del algoritmo.
+- Notacion \Omega()
+- Notacion O-tachada()
+*** Notas sobre la maquina ram y algo
+#+BEGIN_SRC asm
+ LOAD =i // l(i)
+ LOAD i  // l(i) + l(r(i))
+ LOAD *i // l(i) + l(r(i)) + l(r(r(i)))
+ ADD op  // l(r(op)) + lo de arriba segun el modo
+// Hay que ver la instrucion que mas costo tiene de forma individual
+#+END_SRC
+** Divide y vencerás
+*** Tecnica Divide y Vencerás
+Historia: Viene de los romanos cuando conquistaron italia.
+#+BEGIN_SRC haskell
+Resolver (x)
+  Si EsCasoBase x -- Intentar que este caso base sea lo mas grande possible
+      s = solucion de X
+  Si No
+      Descomponer X en k subproblemas mas pequeños.
+      Para cada subproblema:
+        S1 = Resolver X1
+      Combinar Si para obtener la solucion de X
+#+END_SRC
+**** Torres de hanoi: Funcion de recurrencia
+T(N) = 2T(n-1) + 1 = 2(2T(n-2) + 1) = 4T(n-2) + 3 = 4 (2T(n-3) + 1) + 3 = .... T(1)
+
+$T(1) + \sum^{n-i}_{i=0} 2^i$
+
+**** Multiplicacion de dos enteros grandes
+
+1234 x 567 
+$5x10^2 + 6x10^1 + 7x10^0$
+
+Numero de tamaño n → se divide en dos partes
+- 1234 = $12x10^2+34$ 
+
+Multiplicacion teneiendo esto asi.
+- $(a_1{10^{n/2}} + a_2)*(b_1{10^{n/2}} + b_2)$
+- a_1*a2..... en las transparencias
+
+Analisis del algoritmo.
+$T(n) = 2^2T(n/2)+cn = 2^2(2^2T(n/4)+cn) 
+= 2^4T(n/4) + (2^1+2^0)*cn 
+= 2^4(2^2T(n/2^3)+cn/2^2)+(2^1+2^0)*cn 
+= 2^6T(n/2^3)+(2^3+2^1+2^0)*cn 
+= 2^{2j}T(1)+(\sum^{j-1}_{i=0} 2^i)cn$
+
+$2^{2j}=2^{j+j}=2^j*2^j=n*n = n^2$
+
+No cambia respecto al metoda tradicinal la ...
+
+Se reducen multplicaciones Para mejorarlo
+
+$(a_1{10^{n/2}} + a_2)*(b_1{10^{n/2}} + b_2)
+= (x_h + x_l) + (y_h + y_l)
+= (y_h + y_l) (x_h + y_l) + (x_l + y_h) + (x_h + x_l)$
+
+$T(n) = 3T(n/2)+cn = 3(3T(n/4)+cn/2)+cn 
+= 3^3T(n/2^n) + (3/2+1)*cn 
+= 3^jT(1)/(n/2^j)+(\sum^{j-1}_{i=0} (3/2)^i)*cn$
+
+$3^j = 3^{log_2 n} = n^{log_2 3}$
+
+
+

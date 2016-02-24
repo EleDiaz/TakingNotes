@@ -1,0 +1,254 @@
+#+TITLE Inteligencia Artificial Avanzada
+#+AUTHOR Eleazar Díaz Delgado
+
+* Inteligencia Artificial Avanzada
+** NOTAS
+- Proximos viernes control
+** Presentación Dia-1
+Profesor Fernando
+- Clips
+- 70% practica y 30% proyecto -- No examen final.
+- Clases de practicas virtuales - Leer articulo y reponder preguntas.
+** Módulo 1: Sistemas avanzados de representación del conocimiento
+*** Introducción
+**** Incertidumbre
+Modelo del mundo
+- Completo
+- Consistente
+- Inalterable
+
+Sin embargo, en muchos dominios de interes no es posible crear tales modelos debido a la presencia de incertidumbre
+**** Fuentes de incertidumbre: Hechos
+- Ignorancia
+  + Conocimiento incompleto -- El campo de la medicina
+  + Aunque se pudiera completar el conocimiento, puede ser necesario tomar decisiones con informacion incompleta
+    -- Se debe tomar la decicion en ese instante sin perder tiempo por ejemplo
+  + En otros campos la ignorancia es irreducible
+    - Presente en modelos físico. El lanzamiento de una moneda
+    - Presente en la vida real. 
+- Vaquedad e imprecisión
+  + Algunos conceptos son vagos o impresisos. Las personas altas, felices...
+    -- Una persona es alta si mide >= 180. Es estricta.
+**** Fuentes de incertidumbre: Reglas
+- Las reglas son generalmente heuristicas que utilizan los expertos en determinadas situaciones.
+- En el mundo real utilizamos habitualmente reglas que son:
+  + Inexactas o incompletas. Si es un ave => vuela. Los pinguinos no vuelan
+  + Imprecisas. Recetas de cocina
+  + Inconsistentes. No por mucho madrugar amenece mas temprano. Al que madruga dios le ayuda. Reglas contradictorias
+**** Razonamineto con incertidumbre
+- Objetivo:
+  Ser capaz de raxonar sin tener todo el conocimiento relevante.
+- Implementación:
+  + Es dificil cumplir estos requerimientos utilizando la logica de primer orden
+  + Deben de introducirse modelos para manejar informacion vaga, incompleta y contradictoria.
+  + Crucial....
+**** Actuar con incertidumbre
+- Actuar de forma optima -> Decidir que a hacer
+
+Cual es la forma de decidir?
+- La decision Racional. La de mejor resultado
+- Cuando hay incertidumbre para poder decidir racionalmente se requiere::
+  + Importancia de los distintos resultados de una accion
+  + La incertidumbre de alcanzar esos resultados cuando se realiza la acción. Hay conjugar el costo de las acciones con su probabilidad.
+**** Cuestinos a resolver por las aproximaciones a la incertidumbre
+- Como evaluar la aplicabilidad de las condiciones de la reglas?
+  + Si X es mayor necesita gafas
+- Como combinar hechos imprecisos?
+  + X es alto , X es rubio
+- Dada un hecho immprecisa y una regla imprecisa: Que confianza se puede tener en las concluciones?
+  + X estudia mucho
+  + Si X estudia mucho aprobara
+- Dada la misma conclusion incierta de varias reglas. Que confianza se puede tener en la conclusion?
+**** Algo de historia
+...
+**** Principales modelos de representacion de la incertidumbre
+- La logica no es adecuada para modelar la incertidumbre...
+- Modelos simbolicos
+- Modelos numericos
+**** Representacion simbolica de la incertidumbre
+...
+***** Extensiones de la logica
+- Logica por defecto
+- Asuncion del mundo cerrado - Se usa en la practica
+- Inconvenientes
+**** Representacion numerica de la incertidumbre: Factores de certeza
+- Los factores de certeza aparecieron en el sistema experto MYCIN
+
+
+
+...
+Cada regla tiene un factor de incertidumbre que varia entre 0 y 1.
+- Grados de creencia
+Example.
+Evidencia " Podemos quiere estar en el gobierno "
+Hipotesis " Habra gobierno de izquierda "
+(E)Podemos quiere estar en el gov => (H)habra gobierno de izq FC(H|E) = 0.9
+GC(H|E) = 0.9
+GC(¬H|E) = 0
+- Propiedades
+  + A diferencia de los grados de creencia probailisticos
+`GC(H|E) + GC(¬H|E) /= 1`
+
+- Valores de certeza asignados por una regla
+- Valores de certeza asignados por una regla con multiples atecedentes.
+- Valores de certeza asignados por reglas convergentes
+**** Combinacion de factores de certeza
+- Valores de certeza asignados por una regla.
+
+*Nota la / se susutituye por |*
+| E → H | FC(H/E)       |
+| E     | FC(E)         |
+|-------+---------------|
+| H     | FC(E)xFC(H/E) |
+
+- Valores de certeza asignados por reglas convergentes
+| E1 → H | FC(H/E1) |
+| E2 → H | FC(H/E2) |
+| E1     | FC(E1)   |
+| E2     | FC(E2)   |
+|--------+----------|
+|        |          |
+Se dispara la E1 con un factor de incertidumbre y despues se dispara E2 que tiene otro factor de incertidumbre, 
+se debe de unificar estos valores para ello se usa la formula siguiente:
+#+begin_src haskell
+f_comb :: Int -> Int -> Int
+f_comb x y | x > 0 && y > 0 = x+y-x*y
+           | x*y <= 0       = (x+y)/(1-min(abs x , abs y)
+           | otherwise      = x+y+x*y
+#+end_src
+**** Como era el rendimiento del Mycin
+- Hay incoherencias al utilizar esta tecnica
+**** Ejercicios
+- R1 LLJ → AS 0.5
+- R2 LLM → AS 0.9
+- R3 AS → R   0.99
+- LLJ 1.0
+- LLM 1.0
+**** Representacion Numerica de la incertidumbre: Lógica difusa
+- Desarrolada por Zadeh
+- Asigna a cada proposicion A un *grado de verdad* V entre 0 y 1
+  + 0 → falsa
+  + 1 → Verdadera
+- Generalizacion de la lógica clasica
+- relacionada con la descripcion de la vaguedad en vez de la incertidumbre
+***** Ejemplo
+- La  temperatura del enfermo es alta
+  + Clásica: O es verdad o es falso
+  + Difusa: Asigna el grado de verdad en funcion de la temperatura → la proposisicion puede ser parcialmente cierta o falsa.
+- Se puede trabajar con inforacion contradictoria
+**** Razonamiento difuso basado en reglas
+Via ejemplo
+***** Ejercicio 5 - Tema 1
+#+BEGIN_QUOTE
+P(recipitaciones)
+H(umedad)
+
+ H = 55
+
+0 <= H <= 100
+0 <= P <= 100
+
+R1: H = Baja → P = escasas
+R2: H = Normal → P = normales
+R3: H = Mucho → P = Abundantes
+
+Obtener los grados de verdad de los antecedentes
+Cogemos los valores y sustituimos en la funcion dada
+
+Los valore se sacan de las formulas dadas por el ejercicio
+V(H=Bajo) = 1/6
+V(H=Normal) = 1/6
+V(H=Mucho) = 0
+
+Mp_i -> son funciones del ejercicio.
+V(P=escasas) = min (Mpe, 1/6)
+V(P=normales) = min (Mpn, 1/6)
+V(P=abundanttes) = min (Mpa, 0)
+
+Se representa graficamente 
+
+V = max(min(Mpe,1/6), min(Mpn, 1/6),0);
+
+No se suele aplicar el maximo sino el centroide.
+
+→ Centroide
+$\frac{\int xv(x)dx}{\int v(x)}$
+
+\begin{equation}
+\frac{\int^5_0 xx/30 + \int^20_5 x1/6 + \int^25_20 x\frac{(25-x)}{10}}
+{\int^5_0 x/30 + \int^20_5 1/6 + \int^25_20 x\frac{(25-x)}{10}}
+\end{equation}
+
+
+#+END_QUOTE
+
+No se puede hacer directamente con lo que se aproxima con sumas:
+
+$\sum x_i v(x_i) / \sum v(x_i)$
+
+Hacer la suma los intervalos en este caso se cogieron de 10 en 10
+ejemplo de calculacion de uno de los terminos de la suma
+
+10*v(10) → max(min(0,1/6), min(1/2, 1/6),0) → 1/6
+
+=(10*1/6+20/(1/6))/(1/6 * 1/6) = 15 ~~ con la integral es 12.5
+***** Ejercicio 6 - Tema 1
+
+#+BEGIN_QUOTE
+0 <= T <= 100
+0 <= H <= 100
+0 <= P <= 100
+0 <= I <= 100
+0 <= Q <= 100
+
+T = alta ^ H = alta ^ P = cerca → Q = alta
+I = alta ^  → Q = baja
+H = alta ^ T = alta ^ I = baja → Q = alta
+T = baja ^ H = baja → Q = muy bajo
+
+T = 80
+H = 10
+Q = 15
+I = 90
+
+V_R1 = $\frac{1}{10}$
+#+BEGIN_SRC haskell
+M_IH x | z >= 20 = 1
+       | x < 20  = 0
+#+END_SRC
+V_R2 = 1
+V_R3 = 0
+V_R4 = 0
+
+$V = max(min(M_{AH},1/10),min(M_{QI},1),min(M_{AH},0),min(M_{QV},0)$
+
+$C=\frac{0v(0)+25v(25)+50v(50)+75v(75)+100v(100)}
+
+{v(0)+v(25)+v(50)+v(75)+v(100)}$
+
+Estos son pocos puntos, para ser practicos pero se deben de poner más
+si se calcula con ordenador
+
+$C=\frac{0+25+1/2+50*0+75*1/10+100*1/10} {1+1/2+0+1/10+1/10} = \frac{300}{17}$
+
+Hacer el individuo dos:
+
+Si el antecente es cero el consecuente no juega ningun papel se puede quitar
+
+#+END_QUOTE
+
+*** Representacion del conocimiento
+
+*** Razonamiento probabilistico en IA
+
+*** Toma de decisiones en ambientes de incertidumbre
+
+*** Aprendizaje con incertidumbre
+** Módulo 2: Procesamiento del lenguaje natural
+*** Reconocimiento del habla
+*** Técnicas de procesamiento del lenguaje natural
+** Módulo 3: Planificacion
+*** Técnicas de planificacion en IA
+** Módulo 4: Técnicas avanzadas de busqueda
+*** Técnicas avanzadas de busqueda en IA
+
