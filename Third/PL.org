@@ -140,6 +140,23 @@ Permite traer ficheros de distintas ramas a la actual y de commits anteriores al
   git checkout commit file
 #+END_SRC
 
+*** GIT RESET 
+Mueve el HEAD a una determinada posicion, tambien se puede usar para descartar todos los cambios actuales hasta los añadidos en con add
+
+Para archivos especificos usar `git checkout -- file`
+
+*** XRegexExp
+Expresiones regulares mas legibles
+
+#+BEGIN_SRC javascript
+// Using named capture and flag x (free-spacing and line comments)
+date = XRegExp('(?<year>  [0-9]{4} ) -?  # year  \n' +
+               '(?<month> [0-9]{2} ) -?  # month \n' +
+               '(?<day>   [0-9]{2} )     # day     ', 'x');
+#+END_SRC
+
+Permiten poner espacios, comentarios, tambien se pueden poner nombres a los parentesis
+
 *** Mocha
 Permite varios frameworks para las excepciones en este caso usamos chai.
 
@@ -147,8 +164,45 @@ Permite varios frameworks para las excepciones en este caso usamos chai.
 npm install --save mocha
 #+END_SRC
 
+*** A taste of javascript
 
-*** GIT RESET 
-Mueve el HEAD a una determinada posicion, tambien se puede usar para descartar todos los cambios actuales hasta los añadidos en con add
+#+BEGIN_SRC javascript
+"use strict";
 
-Para archivos especificos usar `git checkout -- file`
+function Cow(name) { // Es el constructor de clase
+  this.name = name || "Anon cow"; // Short-Circuit // "" == false
+}
+
+Cow.prototype = { // Se definen los atributos, que pueden ser funciones...
+  greets: function(target) {
+    if (!target)
+      throw new Error("missing target");
+    return this.name + " greets " + target + "!";
+  }
+};
+#+END_SRC
+
+
+#+BEGIN_SRC javascript
+// El codigo esta encapsulado, para evitar que establezcan las variables globales 
+(function(exports) {
+  "use strict";
+
+  function Cow(name) {
+    this.name = name || "Anon cow";
+  }
+  exports.Cow = Cow;
+
+  Cow.prototype = {
+    greets: function(target) {
+      if (!target)
+        throw new Error("missing target");
+      return this.name + " greets " + target + "!";
+    }
+  };
+})(this);
+#+END_SRC
+
+** Gulp
+Task manager
+
