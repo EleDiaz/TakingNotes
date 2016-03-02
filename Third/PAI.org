@@ -43,6 +43,67 @@ Test-NG
 EclEmma -> Que cantidad de lineas se comtemplan en el testeo
 *** Badel
 Traduce aplicaciones
+** Presentación OOP Principles
+- Test Especifico de esto
+*** OOP
+class, herencias...polimorfismo
+
+*** Patrones de diseño
+Creacion de estructura y modular, son formas de resolver problemas comunes.
+
+*** Principios
+Permite a otros programadores hacerse entender y generar codigo modular ....
+Importantes
+
+**** SOLID
+Robert C. Martin
+
+El principio de responsabilidad- solo una razon para cambiar
+
+***** DRY
+Evitar la duplicacion de codigo.
+
+****** Abstraccion
+Agrupa caracteristicas comunes
+
+***** Encasuplar los cambios
+Todo aquello que cambie se bebe encapsular
+Ejemplo los getters y setters
+- Class like black box
+
+- Claridad y flexibilidad
+
+***** Open close principle
+Abierto a la extension
+Cerrado a la modificacion del codigo???
+
+***** Single Responsability
+Que una clase no tenga mas una funcionalidad.
+
+***** Dependency Injection or inversion Principle
+
+***** Favor composition over Inheritencia
+La composicion es mas flexible.
+
+****** Limited reuse code wit inheritance
+
+****** Unit Testing
+La herencia impide el testeo de variables privadas
+****** Final classes
+Se impide la herencia de la clase
+****** Encapsulacion
+Algo???
+
+***** Liskov Substitution Principle
+
+***** Interface Segregation Principle
+
+***** Programming for interface not implementation
+Programar "bello", modular no especifico al problema. Hacer algo tirando a generalizar para
+proveer mayor flexibilidad.
+
+***** Delegation principle
+Subidivide el codigo en partes legibles por si solas.
 
 ** Aprende java como si estuviera en primero
 *** Interfaces
@@ -65,3 +126,11 @@ import static ....; // solo algunos elementos del paquete
 Argumentos variables
 
 Anotaciones @algo Es informacion que se añade al codigo.
+** Intefaces graficas de usuario en Java fundamentos.
+A way to comunicate programs with humans
+
+AWT - bind to architecture
+
+Swing - Indepentedent to platform
+
+

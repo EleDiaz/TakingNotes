@@ -310,5 +310,25 @@ $T(n) = 3T(n/2)+cn = 3(3T(n/4)+cn/2)+cn
 
 $3^j = 3^{log_2 n} = n^{log_2 3}$
 
+**** Subvector de suma maxima
+
+Calcular complejidad
+$T(n) = 2T(n/2) + cn$
+
+$T(n) = 2T(n/2) + cn = = 2*(2T(n/2) +cn/2) + cn = 4T(n/4) + 3cn = 2^2T(n/2^2) + 3cn$
+
+
+$T(n) = 2T(n/2) + cn = = 2*(2T(n/2) +cn/2) + cn = 4T(n/4) + 2cn = 2^2T(n/2^2) + 2cn$
+
+$2^2T(n/2^2) + 2cn = 2^2[2T(n/2^3) + cn/2^2] + 2cn = 2^3T(n/2^3) + 2^2cn/2^ + 2cn = 2^3T(n/2^3) + 3cn$
+
+j son las veces que se debe dividir $n = 2^j -> j = log_2 n$
+$2^3T(n/2^3) + 3cn = ... = 2^jT(1) + j cn = log_2 n cn$
+
+** Programación dinámica
+Método ascendente, apartir de las soluciones de los subproblemas se calcula el problema general.
+
+Caso más típico es la sucesión de Fibonnaci
+- Se calculan repetidas veces soluciones ya calculadas.
 
 

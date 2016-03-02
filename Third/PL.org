@@ -155,14 +155,54 @@ date = XRegExp('(?<year>  [0-9]{4} ) -?  # year  \n' +
                '(?<day>   [0-9]{2} )     # day     ', 'x');
 #+END_SRC
 
-Permiten poner espacios, comentarios, tambien se pueden poner nombres a los parentesis
+Permiten poner espacios, comentarios, tambien se pueden poner nombres a los parentesis,
+O acceder a los elementos de la expresion regular con
+#+BEGIN_SRC javascript
+match = XRegexExp.exec("12-12-2015", date);
 
+match.year // → 2015
+#+END_SRC
 *** Mocha
 Permite varios frameworks para las excepciones en este caso usamos chai.
 
 #+BEGIN_SRC bash
 npm install --save mocha
 #+END_SRC
+
+Mocha soporta varios estilos de pruebas más parecidos a rspec, unit test  o a bdd entre otros.
+
+#+BEGIN_SRC javascript
+// estilo bdd
+var expect = chai.expect;
+
+describe("Cow", function() {
+  describe("constructor", function() {
+    it("should have a default name", function() {
+      var cow = new Cow();
+      expect(cow.name).to.equal("Anon cow");
+    });
+
+    it("should set cow's name if provided", function() {
+      var cow = new Cow("Kate");
+      expect(cow.name).to.equal("Kate");
+    });
+  });
+
+  describe("#greets", function() { // un estandar que permite saber que la prueba se hace a un método
+    it("should throw if no target is passed in", function() {
+      expect(function() {
+        (new Cow()).greets();
+      }).to.throw(Error);
+    });
+
+    it("should greet passed target", function() {
+      var greetings = (new Cow("Kate")).greets("Baby");
+      expect(greetings).to.equal("Kate greets Baby!");
+    });
+  });
+});
+#+END_SRC
+
 
 *** A taste of javascript
 
@@ -185,6 +225,8 @@ Cow.prototype = { // Se definen los atributos, que pueden ser funciones...
 
 #+BEGIN_SRC javascript
 // El codigo esta encapsulado, para evitar que establezcan las variables globales 
+// Al hacer esto y parsarle this, exports se combierte en la variable global "Window"
+// lo cual permite seleccionar que exportar. 
 (function(exports) {
   "use strict";
 
@@ -203,6 +245,13 @@ Cow.prototype = { // Se definen los atributos, que pueden ser funciones...
 })(this);
 #+END_SRC
 
-** Gulp
+Una clausura es el cierre de un entorno, puede se total o parcial, si es parcial se puede decidir
+que elementos tienen acceso interno al entorno.
+
+Con _ la variables que por convencion son privadas.
+
+*** Gulp
 Task manager
+
+*** OOP en javacript
 

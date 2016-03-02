@@ -30,3 +30,14 @@ Matriz de confusion
 La diagonal es % de acierto
 
 
+** Practica
+Weka
+Cross-validation se divide los datos en 10 y se usa 1 con para testear contra el resto y se va cambiando el
+conjunto con el que se testea, al final se calcula el promedio
+
+Ojo con la unamidad, es cuando se corta, puede que un sub arbol termine con la misma conclusion
+pero se abre ya que el algoritmo termina cogiendo el mayor (votacion). Esto se podria otimizar una
+vex calculado el arbol.
+
+Analizar el arbol para concluir en conclusiones para el proyecto. Saber el funcionamiento de los algoritmos
+para saber como se han obtenido los resultados

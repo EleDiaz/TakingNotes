@@ -3,7 +3,7 @@
 
 * Inteligencia Artificial Avanzada
 ** NOTAS
-- Proximos viernes control
+- Tengo que compilar fuzzyclips
 ** Presentación Dia-1
 Profesor Fernando
 - Clips
