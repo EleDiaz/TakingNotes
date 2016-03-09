@@ -41,3 +41,14 @@ vex calculado el arbol.
 
 Analizar el arbol para concluir en conclusiones para el proyecto. Saber el funcionamiento de los algoritmos
 para saber como se han obtenido los resultados
+
+Poner todos los datos
+** Clasificadores Bayesianos
+*** Introducción
+*** Desiciones bayesianas
+Con el teorema de bayes y teorma total, terminamos por coger la mayor → Hipotesis maxima...
+**** Tarea
+Muchas varialbes con 3 o 4 valores para representalos pues muy dificil. Para evitarlo se aplica
+una transformacion para evitar los 0. Que se hace realmente en esos casos?
+*** Clasificador Naïve - Bayes
+

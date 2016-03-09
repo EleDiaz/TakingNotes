@@ -331,4 +331,52 @@ Método ascendente, apartir de las soluciones de los subproblemas se calcula el 
 Caso más típico es la sucesión de Fibonnaci
 - Se calculan repetidas veces soluciones ya calculadas.
 
+*** Principio de optimalidad de Bellman.
+
+*** Problema de la mochila 0-1
+
+*** Camino minimo en un grafo multietapa
+**** Grafo multietapa
+Se tiene dividido el grafo en subconjuno de verrtices donde se cumple que cada arista tiene
+el inicio en un conjunto y el final en otro conjunto. En orden y tal.
+Se parece a funciones compuestas usando los diagramas.
+
+Solo tiene un unico vertice origen y nodo destino unico
+
+Para llegar del inicio al final se deben pasar k-1 aristas donde k indica las etapas.
+*** Viajante de comercio
+Consiste en tener un conjunto de ciudades, un viajante debe recorrer todas las ciudades 
+sin repetir ninguna de ellas y volver a la ciudad por la que se empezó.
+#+BEGIN_SRC plain
+ 1 2 3 4 1
+ 2 3 4 1 2
+
+Son el mismo camino con lo que se determina el origen siempre en 1
+#+END_SRC
+Se puede subdividir el problema y la combinacion viene dada por suma de las soluciones
+#+BEGIN_SRC plain
+ subpr  subpr2
+ -----  ------
+ 1 2 3  4 2 1
+#+END_SRC
+
+*Para la práctica se debe medir el tiempo!*
+Mostrar el camino.
+*El 29 es la corrección.*
+*** Ejercicio planteado
+Producto encadenado de matrices
+#+BEGIN_SRC 
+A   x   B  → C
+nxm   mxp    nxp
+
+nxmxp operaciones
+
+
+(A1   x   A2)   x   A3
+Como distribuimos los parentesis
+
+Tiene que calcular el numero minimo de operaciones
+n x m x p → es el numero de una multplicacion de matrices
+#+END_SRC
+
 

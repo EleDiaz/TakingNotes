@@ -3,7 +3,7 @@
 
 * Inteligencia Artificial Avanzada
 ** NOTAS
-- Tengo que compilar fuzzyclips
+- EStudia iaa t tid junto
 ** Presentación Dia-1
 Profesor Fernando
 - Clips
@@ -238,17 +238,35 @@ Si el antecente es cero el consecuente no juega ningun papel se puede quitar
 #+END_QUOTE
 
 *** Representacion del conocimiento
-
+//???
 *** Razonamiento probabilistico en IA
+**** Probabilidad condicional
+**** La regla de bayes
+**** Ejemplo:
+#+BEGIN_Quote
+H = Enfermedad  P(H=si/T=si)
+E = Test        P(H=si/T=no)
+
+H = El alumno domina la asignatura
+E = aprueba examen
+#+END_Quote
+
+**** Independencia condicional
+
+**** Redes Bayesianas
+
 
 *** Toma de decisiones en ambientes de incertidumbre
 
 *** Aprendizaje con incertidumbre
+
 ** Módulo 2: Procesamiento del lenguaje natural
 *** Reconocimiento del habla
 *** Técnicas de procesamiento del lenguaje natural
+
 ** Módulo 3: Planificacion
 *** Técnicas de planificacion en IA
+
 ** Módulo 4: Técnicas avanzadas de busqueda
 *** Técnicas avanzadas de busqueda en IA
 

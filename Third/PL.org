@@ -254,4 +254,10 @@ Con _ la variables que por convencion son privadas.
 Task manager
 
 *** OOP en javacript
+*** Code Smell
+- Funciones puras ...
 
+- EL principio Open/Closed
+
+
+- "\b frontera de palabra, hay letras o numeros y deja de haberla"
