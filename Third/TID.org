@@ -52,3 +52,22 @@ Muchas varialbes con 3 o 4 valores para representalos pues muy dificil. Para evi
 una transformacion para evitar los 0. Que se hace realmente en esos casos?
 *** Clasificador Naïve - Bayes
 
+** Algoritmos genéticos
+Descubrimiento de reglas
+- If (prediccion cubierto) then jugar si
+- If (viento = debil and humedad) then jugar si
+- If (viento = fuerte) then jugar no
+
+| Prediccion           | Temp      | Humedad   | Viento    | Jugar     |
+| 3 valores            | 2 valores | 2 valores | 2 valores | 2 valores |
+
+
+Cada variable se representa con un array de 0|1 de la dimension de valores.
+ 110 00 00 00 10
+
+Se debe ver como 1 despejado o lluvioso, en el caso del consecuente (Jugar)
+no tiene sentido 11
+
+*Leer articulos en ingles*
+
+

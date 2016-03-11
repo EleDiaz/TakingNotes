@@ -255,9 +255,7 @@ E = aprueba examen
 
 **** Redes Bayesianas
 
-
 *** Toma de decisiones en ambientes de incertidumbre
-
 *** Aprendizaje con incertidumbre
 
 ** Módulo 2: Procesamiento del lenguaje natural
@@ -269,4 +267,6 @@ E = aprueba examen
 
 ** Módulo 4: Técnicas avanzadas de busqueda
 *** Técnicas avanzadas de busqueda en IA
+
+
 
