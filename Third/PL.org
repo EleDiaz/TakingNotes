@@ -261,3 +261,11 @@ Task manager
 
 
 - "\b frontera de palabra, hay letras o numeros y deja de haberla"
+*** GULP 
+
+- Uglify
+- Mocha y chai (again)
+- Blanketjs -- ver el repo de la cow
+
+Cross origin request se refiere a CORS, pide un recurso de un dominio diferente del dominio inicial.
+- Karma

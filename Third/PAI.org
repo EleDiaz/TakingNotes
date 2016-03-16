@@ -1,6 +1,7 @@
 * PAI
 ** Notas
 - Hacer una maquina virtual de ubuntu.
+- Vosotros quieren  noo decirlo XD
 ** Presentación - Eclipse
 *** Historia
 Hay retrocompatibilidad? con los imports
@@ -44,6 +45,7 @@ EclEmma -> Que cantidad de lineas se comtemplan en el testeo
 *** Badel
 Traduce aplicaciones
 ** Presentación OOP Principles
+
 - Test Especifico de esto
 *** OOP
 class, herencias...polimorfismo
@@ -104,6 +106,25 @@ proveer mayor flexibilidad.
 
 ***** Delegation principle
 Subidivide el codigo en partes legibles por si solas.
+
+** Presentacion - Code Coverage - Jacoco
+
+Es una medida que da el grado de cantidad de condigo fuente esta probado.
+Permite saber la calidad de los test.
+*** Criterios de covertura
+Se quiere saber cuanto de cubierto esta.
+- Condiciones
+- Decisiones 0 a mas operadores booleanos
+
+Criterios basicos
+- Todas la funciones comprobadas
+- Todos los declaraciones
+- Ramas - Todos los caminos de la estructura de control
+- Cubrieminto de condiciones
+*** Modified condition/decision
+Extension
+n+1, se varia una de las variables en cada iteracion y se obtienen los casos
+*** Parametros cubrimiento
 
 ** Aprende java como si estuviera en primero
 *** Interfaces
