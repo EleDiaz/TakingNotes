@@ -1,0 +1,242 @@
+* Repaso 1º parte
+** Como se usan las GH-Pages
+** Como se escriben Github Issues
+https://guides.github.com/features/issues/
+Issues are a great way to keep track of tasks, enhancements, and bugs for your projects. 
+They’re kind of like email—except they can be shared and discussed with the rest of your
+team. Most software projects have a bug tracker of some kind. GitHub’s tracker is called
+Issues, and has its own section in every repository.
+
+** Como usar las Developer Tools de Chrome
+** Como tener un repo en github en una cuenta distinta de la cuenta por defecto
+** Como hacer GIT pull request
+** Expresiones regulares
+*** Que retorna
+#+BEGIN_SRC javascript
+"hello small world and blue sky".match(/(\S+)\s+(\S+)/);
+
+[ 'hello small', // La cadena que se machea
+  'hello',       // a continuacion los parentesis
+  'small',       
+  index: 0,      // inicio del macheo
+  input: 'hello small world and blue sky' ] 
+
+// Las S en mayuscula son todos los caracteres que no sean blancos 's'
+#+END_SRC
+*** Que caza con cada parentesis
+#+BEGIN_SRC javascript
+x = "I have 2 numbers: 53147"
+pats = [ /(.*)(\d*)/,  // →el primer parentesis caza todo gredy
+
+         /(.*)(\d+)/,  // →el primer parentesis intenta cazar todo pero el segundo necesita
+                       // uno como minimo
+
+         /(.*?)(\d*)/, // →Ojo uno es lazy y el otro con cadena vacia ya coincide
+                      
+         /(.*?)(\d+)/, // →el primero caza de forma perezosa "I have " el segundo pilla "2"
+
+         /(.*)(\d+)$/, // →Hace lo mismo que el 2
+
+         /(.*?)(\d+)$/, // →En este caso en lazy el primero "I have 2 numbers: " y el segundo 53147
+
+         /(.*)\b(\d+)$/, // →En este caso pilla como el de arriba 
+                         // \b es un ancla indica dejar de poner letras o numeros
+
+         /(.*\D)(\d+)$/  // Exactament lo mismo que el de arriba la D mayuscula indica no \d
+]
+pats.map(function (r) { return r.exec(x).slice(1);})
+#+END_SRC
+*** Que retorna el matching
+#+BEGIN_SRC javascript
+> a = "hola juan"
+=> "hola juan"
+> a.match(/(?:hola )*(juan)/)
+=> [ 'hola juan', 'juan', index: 0, input: 'hola juan' ] // solo juan porque el parentesis es
+ // sin memoria !!!ojo
+#+END_SRC
+*** Que salidas se obtienen
+#+BEGIN_SRC  javascript
+> "a\na".match(/a$/)
+=> [ 'a', index: 2, input: 'a\na']
+> "a\na".match(/a$/m) // mutiline option for each line apply expresion~~
+=> [ 'a', index: 0, input: 'a\na' ]
+> "a\na".match(/^a/gm) // Global return a array of coincidences by line (m
+=> [ 'a', 'a' ]
+> "a\na".match(/^a/g) // Array but no second "^a"
+=> [ 'a' ]
+#+END_SRC
+*** Funcion de remplazo
+Se pone c++; aqui tenemos el concepto del operado (,) :: IO a -> IO b -> IO b con precedencia muy
+baja
+#+BEGIN_SRC javascript
+a = 1, 2 // menor precedencia que el = → (a = 1), 2
+=> 2
+a
+=> 1
+#+END_SRC
+
+#+BEGIN_SRC javascript
+> x = "one\ntwo\nthree\nfour"
+’one\ntwo\nthree\nfour’
+> a = (c = 1, x.replace(/^/mg, function(t) { return c++; })); console.log(a)
+1 one
+2 two
+3 three
+4 four
+#+END_SRC
+*** Crear un funcion de repeat
+#+BEGIN_SRC javascript
+> x = ’a’.repeat(40)
+’aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa’
+// Para ello se debe utilizar el concepto de "monkey path" es
+// la capacidad de abrir una clase ya creada.
+String.prototype.repeat = function(num) { new Array(num+1).join(this) }
+// el metodo join uno pares por algun elemento, en este caso no hay nada asi que se va 
+// a juntar num+1 null con la cadena a repetir → se concatenan num this
+#+END_SRC
+*** Espresion regular flotante
+#+BEGIN_SRC 
+// 2.34, -5.21e-1, 0.9e3
+/[+-]?\d+\.\d+(?:e[+-]?\d+)?/
+#+END_SRC
+*** Que queda m\[0]
+#+BEGIN_SRC 
+m = 'main() /* 1c */ { /* 2c */ return; /* 3c */ }'.match(new RegExp('/\\*.*\\*/'))
+m[0]
+=> /* 1c */ { /* 2c */ return; /* 3c */
+// Coje los /* */ de forma greedy asi que los pilla desde el principio hasta el final
+#+END_SRC
+*** Porque se debe duplicar el \
+#+BEGIN_SRC 
+new RegExp('/\\*.*\\*/')
+// Se debe duplicar la barra de escape para escaparla de la cadena de texto para que el
+// compilador lo sustituya por un \ y a continuacion * asi escapamos el significado especial
+// del *
+#+END_SRC
+**** Escribe un patron regular que reconozca las cadenas que representan numeros no primos en unario de manera que el primer parentesis case con el divisor mas grande del numero.
+Nota unario significa usando solo 1 como alfabeto!
+#+BEGIN_SRC javascript
+/^(11+?)\1+$/
+#+END_SRC
+**** Comentario de una linea de javascript
+#+BEGIN_SRC javascript
+/^.*?(\/\/.*)$/gm
+#+END_SRC
+**** Comentarios /* */
+#+BEGIN_SRC javascript
+/\/\*.*?\*\//
+#+END_SRC
+**** Escribir Codigo de javascript que defina una clase Persona con atributos nombre y apellidos y que disponga de un metodo saluda
+#+BEGIN_SRC javascript
+function Persona(nombre, apellidos) {
+    this.nombre = nombre || "Pepito";
+    this.apellidos = apellidos || "Sanchez";
+}
+
+Persona.prototype = {
+    saluda: function (name) {
+        console.log("hola " + name + " soy " + this.nombre);
+    }
+}
+#+END_SRC
+**** Rellenar
+#+BEGIN_SRC html
+<link ____="global.css" ___="stylesheet" ____="text/css">
+      href              rel              type
+
+<meta http-equiv="Content-Type" content="text/html; charset=_____">
+                                                            utf-8
+#+END_SRC
+**** Autofocus
+Directamente al cargar una pagina centra el cursor sobre ese determinado input
+**** Emmet
+http://docs.emmet.io/cheat-sheet/
+#+BEGIN_SRC plain
+ #page>div.logo+ul#navigation>li*5>a{Item $}
+
+identificador page -> div
+dentro un div con clase logo junto con un hermano ul
+este es una lista desordenada con id navigation dentro una 5 li
+y en cada li un a con el $ indicando el numero de li en el que esta
+#+END_SRC
+***** Syntax
+- > child
+- + sibling
+- * multiplication
+- ^ permite subir un nivel en html
+- () permite agrupar para evitar estar subiendo o liando las cosas
+**** CSS reset
+Este css quita las configuraciones que pueda tener el navegador por defecto y las "estandariza"
+**** Explique el modelo de caja CSS y el significado de sus cuatro componentes
+4 componentes → content, padding, border, margin
+**** Dado el selector
+Este selector se aplica a los sus subelementos de clase .box dentro del tag con identificador #container
+#+BEGIN_SRC css
+#container .box {
+   float: left;
+   padding-bottom: 15px;
+}
+#+END_SRC
+#+BEGIN_SRC html
+<div id="container">
+  <div class="box"></div> <-- a este se aplica -->
+  <div class="box-2"></div>
+</div>
+<div class="box"></div>
+#+END_SRC
+**** Dada esta regla
+Se aplica a los elementos con clase box hijos de la objeto container hijos directos! 
+#+BEGIN_SRC css
+#container > .box {
+  float: left;
+  padding-bottom: 15px;
+}
+#+END_SRC
+#+BEGIN_SRC html
+<div id="container">
+  <div class="box"></div> // solo a este se aplica 
+  <div>
+    <div class="box"></div> // este es "subhijo"
+  </div>
+</div>
+#+END_SRC
+**** Dada esta regla
+Les aplicara la regla a los p a todos aquellos que esten cerca de un h2
+#+BEGIN_SRC css
+h2 ~ p { margin-bottom: 20px; }
+#+END_SRC
+#+BEGIN_SRC html
+<h2>Title</h2>
+<p>Paragraph example 1.</p> // este en el mismo nivel que h2
+<p>Paragraph example 2.</p> // este en el mismo nivel que h2
+<p>Paragraph example 3.</p> // este en el mismo nivel que h2
+<div class="box">
+  <p>Paragraph example 4.</p> // este se sale del nivel
+</div>
+#+END_SRC
+**** Dada esta regla
+Esta es mas estrita que la anterior y solo los que esten juntos son alos que se le aplica la regla.
+Tan estricta que ... ver ejemplo
+#+BEGIN_SRC css
+p + p {
+text-indent: 1.5em; margin-bottom: 0;
+}
+#+END_SRC
+#+BEGIN_SRC html
+<h2>Title</h2>
+  <p>Paragraph example 1.</p> // esta NO se aplica no tiene un hermano por encima que se p
+  <p>Paragraph example 2.</p> // si
+  <p>Paragraph example 3.</p> // si
+<div class="box">
+  <p>Paragraph example 4.</p> // no  
+  <p>Paragraph example 5.</p> // si
+</div>
+#+END_SRC
+**** Dada esta regla
+**** Dada esta regla
+**** 
+** Expresiones regulares extendidas: XRegExp
+** Clausuras
+** OOP
+** Scope
+Declarar las variables con var para evitar tachar las globales!!

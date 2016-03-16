@@ -12,12 +12,13 @@ Profesor Fernando
 ** Módulo 1: Sistemas avanzados de representación del conocimiento
 *** Introducción
 **** Incertidumbre
-Modelo del mundo
-- Completo
-- Consistente
-- Inalterable
+En la asignatura "inteligencia artificial se han descrito técnicas de representación del conocimiento y razonamiento para un
+*Modelo del mundo*.
+- Completo. Cuando algo es cierto lo podemos probar.
+- Consistente. Cuando algo no es cierto no se puede probar.
+- Inalterable. Lo cierto y lo falso siempre permanecen así.
 
-Sin embargo, en muchos dominios de interes no es posible crear tales modelos debido a la presencia de incertidumbre
+*Sin embargo, en muchos dominios de interes no es posible crear tales modelos debido a la presencia de incertidumbre*
 **** Fuentes de incertidumbre: Hechos
 - Ignorancia
   + Conocimiento incompleto -- El campo de la medicina
@@ -41,24 +42,24 @@ Sin embargo, en muchos dominios de interes no es posible crear tales modelos deb
 - Implementación:
   + Es dificil cumplir estos requerimientos utilizando la logica de primer orden
   + Deben de introducirse modelos para manejar informacion vaga, incompleta y contradictoria.
-  + Crucial....
+  + Crucial para un sistema funcione en el "mundo real"
 **** Actuar con incertidumbre
-- Actuar de forma optima -> Decidir que a hacer
+- Actuar de forma optima  → Decidir que a hacer
 
-Cual es la forma de decidir?
+¿Cuál es la forma de decidir?
 - La decision Racional. La de mejor resultado
-- Cuando hay incertidumbre para poder decidir racionalmente se requiere::
+- Cuando hay incertidumbre para poder decidir racionalmente se requiere:
   + Importancia de los distintos resultados de una accion
   + La incertidumbre de alcanzar esos resultados cuando se realiza la acción. Hay conjugar el costo de las acciones con su probabilidad.
-**** Cuestinos a resolver por las aproximaciones a la incertidumbre
-- Como evaluar la aplicabilidad de las condiciones de la reglas?
+**** Cuestiones a resolver por las aproximaciones a la incertidumbre
+- Como *evaluar la aplicabilidad* de las condiciones de la reglas?
   + Si X es mayor necesita gafas
-- Como combinar hechos imprecisos?
+- Como *combinar hechos imprecisos*?
   + X es alto , X es rubio
-- Dada un hecho immprecisa y una regla imprecisa: Que confianza se puede tener en las concluciones?
+- Dada un hecho imprecisa y una regla imprecisa: Qué confianza se puede tener en las conclusiones?
   + X estudia mucho
   + Si X estudia mucho aprobara
-- Dada la misma conclusion incierta de varias reglas. Que confianza se puede tener en la conclusion?
+- Dada la *misma conclusión incierta de varias reglas*. Qué confianza se puede tener en la conclusión?
 **** Algo de historia
 ...
 **** Principales modelos de representacion de la incertidumbre
@@ -72,26 +73,42 @@ Cual es la forma de decidir?
 - Asuncion del mundo cerrado - Se usa en la practica
 - Inconvenientes
 **** Representacion numerica de la incertidumbre: Factores de certeza
-- Los factores de certeza aparecieron en el sistema experto MYCIN
+- Los factores de certeza aparecieron en el *sistema experto MYCIN*:
+***** Factores de certeza
+- La base de conocimiento de MYCIN consistía en reglas de la forma: Evidencia → Hipótesis $FC(H|E)$
+- El *factor de certeza FC* representa la certidumbre en la hipótesis cuando se observa la Evidencia.
+- Los FC varian entre -1 (creencia nula) y 1 (creencia total).
 
+****** Grados de creencia
+- Los FC se calculan a partir de los *grados de creencia GC* y no creencia en la hipótesis.
+- Los GC varían entre 0 y 1
+- Se pueden definir en términos de probabilidades como:
 
+#+BEGIN_SRC haskell
+g :: Hipotesis → Evidencia → Int
+g H E | P(h) == 1 = 1
+      | otherwise = (max (P(H|E), P(H)) - P(E)) / (max (1, 0) - P(H))
 
-...
-Cada regla tiene un factor de incertidumbre que varia entre 0 y 1.
-- Grados de creencia
+g :: Hipotesis → Evidencia → Int
+g ¬H E | P(h) == 1 = 1
+       | otherwise = (min (P(H|E), P(H)) - P(E)) / (min (1, 0) - P(H))
+#+END_SRC
+
+- La relación entre FC y GC es:
+#+BEGIN_SRC haskell
+fc H E = GC(H, E) - GC(¬H|E) / 1 - min(GC(H, E), GC(¬H|E))
+#+END_SRC
+
+- Propiedades
+  + A diferencia de los grados de creencia probailisticos `GC(H|E) + GC(¬H|E) /= 1`
+
 Example.
 Evidencia " Podemos quiere estar en el gobierno "
 Hipotesis " Habra gobierno de izquierda "
 (E)Podemos quiere estar en el gov => (H)habra gobierno de izq FC(H|E) = 0.9
 GC(H|E) = 0.9
 GC(¬H|E) = 0
-- Propiedades
-  + A diferencia de los grados de creencia probailisticos
-`GC(H|E) + GC(¬H|E) /= 1`
 
-- Valores de certeza asignados por una regla
-- Valores de certeza asignados por una regla con multiples atecedentes.
-- Valores de certeza asignados por reglas convergentes
 **** Combinacion de factores de certeza
 - Valores de certeza asignados por una regla.
 
@@ -101,13 +118,28 @@ GC(¬H|E) = 0
 |-------+---------------|
 | H     | FC(E)xFC(H/E) |
 
+- Valores de certeza asignados por reglas con multiples antecedentes (conjuncion)
+| E1 → H                                           | FC(H/E1) |
+| E2 → H                                           | FC(H/E2) |
+| E1 ^(and)                                        | FC(E1)   |
+| E2 ^(and...)                                     | FC(E2)   |
+|--------------------------------------------------+----------|
+| FC(H,E) = FC(H/E) FC(E) con FC(E) = min(FC(E_i))            |
+
+- Valores de certeza asignados por una regla con multiples antecedentes (disyuncion)
+  + Si tenemos la regla: Si E entonces H con FC(h|e) = E=E_1 v E_2 v ...
+  + Y los antecedentes de la regla tiene factor de certeza: FC(E_1), FC(E_2), ...
+  + El consecuente de la regla tiene factor de certeza: FC(H,E) = FC(H/E) FC(E) con FC(E) = max(FC(E_i))
+
 - Valores de certeza asignados por reglas convergentes
-| E1 → H | FC(H/E1) |
-| E2 → H | FC(H/E2) |
-| E1     | FC(E1)   |
-| E2     | FC(E2)   |
-|--------+----------|
-|        |          |
+  + Si tenemos la regla: 
+    - Si E_1 entonces H con FC(H|E_1)
+    - Si E_2 entonces H con FC(H|E_2)
+  + Y los antecedentes de la regla tiene factor de certeza: FC(E_1), FC(E_2)
+  + El consecuente de la regla tiene factor de certeza:
+    - FC(H,E_1) = FC(H|E_1) FC(E_1)
+    - FC(H,E_2) = FC(H|E_2) FC(E_2) 
+
 Se dispara la E1 con un factor de incertidumbre y despues se dispara E2 que tiene otro factor de incertidumbre, 
 se debe de unificar estos valores para ello se usa la formula siguiente:
 #+begin_src haskell
@@ -175,8 +207,8 @@ No se suele aplicar el maximo sino el centroide.
 $\frac{\int xv(x)dx}{\int v(x)}$
 
 \begin{equation}
-\frac{\int^5_0 xx/30 + \int^20_5 x1/6 + \int^25_20 x\frac{(25-x)}{10}}
-{\int^5_0 x/30 + \int^20_5 1/6 + \int^25_20 x\frac{(25-x)}{10}}
+\frac{\int^5_0 xx/30 + \int^{20}_5 x1/6 + \int^{25}_{20} x\frac{(25-x)}{10}}
+{\int^5_0 x/30 + \int^{20}_5 1/6 + \int^{25}_{20} x\frac{(25-x)}{10}}
 \end{equation}
 
 
@@ -223,7 +255,6 @@ V_R4 = 0
 $V = max(min(M_{AH},1/10),min(M_{QI},1),min(M_{AH},0),min(M_{QV},0)$
 
 $C=\frac{0v(0)+25v(25)+50v(50)+75v(75)+100v(100)}
-
 {v(0)+v(25)+v(50)+v(75)+v(100)}$
 
 Estos son pocos puntos, para ser practicos pero se deben de poner más
