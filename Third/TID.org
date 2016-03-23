@@ -70,4 +70,24 @@ no tiene sentido 11
 
 *Leer articulos en ingles*
 
+** Árboles de desición(más contenido)
+
+*** Tarea 7
+Variables numericas:
+- Se puede discretizar, establecer intervalos en la variable
+- 
+
+| ID |  11 |   8 |   3 |   1 |   9 |   4 |   2 |   7 |   2 |   5 |  10 |   6 |  14 |  13 |
+| X  | 129 | 143 | 148 | 150 | 151 | 152 | 172 | 195 | 211 | 256 | 265 | 275 | 286 | 312 |
+|    |  no |  no |  no |  no |  no |  no |  si |  si |  si |  si |  si |  no |  no |  no |
+|    |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
+
+h se conje en los puntos donde cambia de si a no y al revez
+h == 151.5, 157, 193.5, 270
+
+** Practicas weka 
+
+Correcion de laplace
+
+
 

@@ -286,6 +286,34 @@ E = aprueba examen
 
 **** Redes Bayesianas
 
+***** Teorema de factorización
+
+Consecuencias:
+
+P(X1, X2) = P(X1)P(X2|X1)
+
+***** Inferencia en redes bayesianas
+(Como realiza netica los calculos)
+
+Como se distribuyen las variables cuando se conoce una determinada variable
+
+****** Tipos de inferencia
+- Diagnostico. Conosco el efecto y se calcula la probabilidad causante. 
+- Predicción. Se conoce la causa y se quiere calcular la probabilidad de un efecto. Me han robado cual es la probabilidad de que me llame el vecino
+- Intercasual. ver diapositiva
+
+****** De forma formal
+Apuntes en hoja
+Variables las que se quiere calcular la probabilidad
+Variables observadas. Para las cuales se conece su valor
+El resto de Variables que no interazan
+
+****** Algoritmos de inferencia
+Exacto → Exponencial
+
+Algoritmos aporximados → tambien exponencial.
+
+
 *** Toma de decisiones en ambientes de incertidumbre
 *** Aprendizaje con incertidumbre
 
