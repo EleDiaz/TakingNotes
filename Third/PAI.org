@@ -125,6 +125,14 @@ Criterios basicos
 Extension
 n+1, se varia una de las variables en cada iteracion y se obtienen los casos
 *** Parametros cubrimiento
+** Designs patterns
+Creational Patterns - Separar la logica de instanciacion de objetos
+Structural - Estructura complejas
+Behavior
+** Unit testing for Java Swing applications 
+Esta basado BDD
+
+** UML
 
 ** Aprende java como si estuviera en primero
 *** Interfaces
@@ -153,5 +161,4 @@ A way to comunicate programs with humans
 AWT - bind to architecture
 
 Swing - Indepentedent to platform
-
 

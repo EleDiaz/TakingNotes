@@ -89,5 +89,44 @@ h == 151.5, 157, 193.5, 270
 
 Correcion de laplace
 
+** Métodos basados en casos y vencidad
+Se utilizan para hacer clustering.
+
+*** Medidas de destancia
+**** Atributos numericos
+IndividuoX = [x_1 .. x_n] = [700 3 2 151 23]
+IndividuoY = [y_1 .. y_n] = [5000 4 1883 17]
+
+Distancia euclidea
+
+Distancia del coseno
+El tio se enredo y termino con la explicacion del astronomo y las estrellas, la distancia se mide 
+por el angulo entre ellas.
+**** Atributos nominales
+Distancia delta mira los conjunto de palabras y comparas
+Se quiere ver la distancia entre palabras.
+
+- Monja
+- Jamon
 
 
+- Mora
+- Amor
+
+Distancia segun el algoritmo de DAA
+
+**** Discriminante lineal de Fisher
+
+**** K Medias
+Se eligen cuatros puntos al azar
+
+La forma solo busca cluster cirulares.
+
+|   | a | b | c | d | e | f | k |
+| a |   |   |   |   |   |   |   |
+| b |   |   |   |   |   |   |   |
+| c |   |   |   |   |   |   |   |
+| d |   |   |   |   |   |   |   |
+| e |   |   |   |   |   | * |   |
+| f |   |   |   |   |   |   |   |
+| k |   |   |   |   |   |   |   |

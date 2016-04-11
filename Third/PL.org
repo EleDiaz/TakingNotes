@@ -269,3 +269,7 @@ Task manager
 
 Cross origin request se refiere a CORS, pide un recurso de un dominio diferente del dominio inicial.
 - Karma
+** CSV
+- Se debe admitir cadenas vacias
+- Se debe saltear \" y las comas si es necesarios
+- /".*?"/
